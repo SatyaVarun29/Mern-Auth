@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 import router from "./routes/userroutes.js";
 import { notfound, errorHandler } from "./middleware/errormiddleware.js";
@@ -10,6 +10,9 @@ const port = process.env.PORT || 5000;
 connectdb();
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended:true }));
 app.use("/api/users", router);
 
 app.get("/", (req, res) => res.send("Server is ready"));
