@@ -1,10 +1,11 @@
 import asyncHandler from "express-async-handler";
-import user from "../models/usermodels.js";
+import User from "../models/usermodels.js";
 
 // @desc autheticate user
 // route post /api/users/auth
 // @access public
 const authuser = asyncHandler(async (req, res) => {
+    
   res.status(200).json({ message: "Auth user" });
 });
 
@@ -12,7 +13,9 @@ const authuser = asyncHandler(async (req, res) => {
 // route post /api/users
 // @access public
 const registerUser = asyncHandler(async (req, res) => {
-    console.log(req.body);
+    const {name}=req.body
+    console.log(name);
+    
     
   res.status(200).json({ message: "Register user" });
 });

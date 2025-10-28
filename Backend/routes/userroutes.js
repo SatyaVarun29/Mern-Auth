@@ -4,8 +4,8 @@ import {authuser,registerUser,getuserProfile,updateUserProfile,logoutUser} from 
 const router=express.Router()
 
 
-router.post('/auth',authuser)
 router.post('/',registerUser)
+router.post('/auth',authuser)
 router.post('/logout',logoutUser)
 // router.get('/profile',getuserProfile)
 // router.put('/profile',updateUserProfile)
