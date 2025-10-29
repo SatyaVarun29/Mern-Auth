@@ -5,7 +5,6 @@ import User from "../models/usermodels.js";
 // route post /api/users/auth
 // @access public
 const authuser = asyncHandler(async (req, res) => {
-    
   res.status(200).json({ message: "Auth user" });
 });
 
@@ -13,11 +12,29 @@ const authuser = asyncHandler(async (req, res) => {
 // route post /api/users
 // @access public
 const registerUser = asyncHandler(async (req, res) => {
-    const {name}=req.body
-    console.log(name);
-    
-    
-  res.status(200).json({ message: "Register user" });
+  const { name, email, password } = req.body;
+
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("user already exists");
+  }
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user");
+  }
 });
 
 // @desc createuser profile
