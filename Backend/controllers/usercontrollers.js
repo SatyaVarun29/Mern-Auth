@@ -6,8 +6,29 @@ import generateToken from "../utils/generatetoken.js";
 // route post /api/users/auth
 // @access public
 const authuser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Auth user" });
+ const {email,password}=req.body
+
+ const user=await User.findOne({email})
+
+ if(user){
+  generateToken(res,user._id)
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
+  }
 });
+ 
+
+ 
+
+
+  
+
 
 // @desc autheticate user
 // route post /api/users
