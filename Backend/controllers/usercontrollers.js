@@ -72,7 +72,11 @@ const getuserProfile = asyncHandler(async (req, res) => {
 // route post /api/users/logout
 // @access public
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "logout user" });
+  res.cookie('jwt','',{
+    httpOnly:true,
+    expires:new Date(0),
+  })
+  res.status(200).json({ message: "User logged out" });
 });
 
 // @desc user update
