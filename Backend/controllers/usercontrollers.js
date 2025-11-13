@@ -65,6 +65,8 @@ const registerUser = asyncHandler(async (req, res) => {
 // route get /api/users/profile
 // @access private
 const getuserProfile = asyncHandler(async (req, res) => {
+ 
+
   res.status(200).json({ message: "User profile" });
 });
 

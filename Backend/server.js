@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import cookieParser from "cookie-parser";
 import router from "./routes/userroutes.js";
 import { notfound, errorHandler } from "./middleware/errormiddleware.js";
 import connectdb from "./config/db.js";
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(cookieParser());
 
 app.use("/api/users", router);
 
