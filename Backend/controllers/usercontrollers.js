@@ -112,7 +112,7 @@ else{
 }
 
 
-  res.status(200).json({ message: "user updated" });
+  res.status(200).json({ message: "updated user" });
 });
 
 export {
