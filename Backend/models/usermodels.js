@@ -30,8 +30,8 @@ userSchema.pre('save', async function (next) {
 
 })
 
-userSchema.methods.matchPassword=async function (enteredpassword) {
-    return await bcrypt.compare(enteredpassword, this.password)
+userSchema.methods.matchPassword=async function (password) {
+    return await bcrypt.compare(password, this.password)
 }
 
 const User=mongoose.model('User',userSchema)
