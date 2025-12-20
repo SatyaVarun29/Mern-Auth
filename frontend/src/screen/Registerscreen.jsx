@@ -3,9 +3,11 @@ import {  Link } from "react-router-dom";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import FormContainer from "../components/formcontainer";
 
-const Loginscreen = () => {
+const RegisterScreen = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const submithandler = async (e) => {
     e.preventDefault();
@@ -13,8 +15,18 @@ const Loginscreen = () => {
   };
   return (
     <FormContainer>
-      <h1>Sign in</h1>
+      <h1>Sign Up</h1>
       <Form onSubmit={submithandler}>
+        <Form.Group className="my-2" controlId="name">
+          <Form.Label>name</Form.Label>
+          <Form.Control
+            type="name"
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
         <Form.Group className="my-2" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -29,20 +41,29 @@ const Loginscreen = () => {
           <Form.Label>password </Form.Label>
           <Form.Control
             type="password"
-            autoComplete="Enter-password"
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        
+        <Form.Group className="my-2" controlId="password">
+          <Form.Label>Confirm password </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Re-Enter Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
 
         <Button type="submit" variant="primary" className="mt-3">
-          Sign in
+          Sign Up
         </Button>
 
         <Row className="py-3">
             <Col>
-              New Customer ? <Link to='/register'>Register</Link>
+              Already account exists ? <Link to='/login'>login</Link>
             </Col>
         </Row>
       </Form>
@@ -50,4 +71,4 @@ const Loginscreen = () => {
   );
 };
 
-export default Loginscreen;
+export default RegisterScreen;
