@@ -1,41 +1,40 @@
-import React, { useState,useEffect } from "react";
-import {  Link,useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import FormContainer from "../components/formcontainer";
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/Authslice";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 
 const Loginscreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate=useNavigate()
-  const dispatch=useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [login,{isLoading}]=useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation();
 
-  const {userInfor}=useSelector((state)=>state.auth)
+  const { userInfor } = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    if(userInfor){
-        navigate('/')
+  useEffect(() => {
+    if (userInfor) {
+      navigate("/");
     }
-  },[navigate,userInfor])
+  }, [navigate, userInfor]);
 
   const submithandler = async (e) => {
     e.preventDefault();
     try {
-        const res=await login({email,password}).unwrap();
-        dispatch(setCredentials({...res}));
-        navigate('/')
-
-
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
     } catch (err) {
-        console.log(err?.data?.message || err.error)
+      toast.error(err?.data?.message || err.error);
     }
-    
   };
   return (
     <FormContainer>
@@ -61,15 +60,15 @@ const Loginscreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
+      {isLoading && <Loader/>}
         <Button type="submit" variant="primary" className="mt-3">
           Sign in
         </Button>
 
         <Row className="py-3">
-            <Col>
-              New Customer ? <Link to='/register'>Register</Link>
-            </Col>
+          <Col>
+            New Customer ? <Link to="/register">Register</Link>
+          </Col>
         </Row>
       </Form>
     </FormContainer>
