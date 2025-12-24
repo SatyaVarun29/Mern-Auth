@@ -26,7 +26,16 @@ const Loginscreen = () => {
 
   const submithandler = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    try {
+        const res=await login({email,password}).unwrap();
+        dispatch(setCredentials({...res}));
+        navigate('/')
+
+
+    } catch (err) {
+        console.log(err?.data?.message || err.error)
+    }
+    
   };
   return (
     <FormContainer>
