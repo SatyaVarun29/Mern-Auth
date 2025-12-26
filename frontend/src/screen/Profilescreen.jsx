@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Col, Row, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/formcontainer";
 import { useDispatch, useSelector } from "react-redux";
-import { useRegisterMutation } from "../slices/userApiSlice";
+
 import { setCredentials } from "../slices/Authslice";
 import { toast } from "react-toastify";
-import Loader from "../components/Loader";
+import { useUpdateProfileMutation } from "../slices/userApiSlice";
+import { useNavigate } from "react-router-dom";
 
-const RegisterScreen = () => {
+const ProfileScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [register, { isLoading }] = useRegisterMutation();
+  const navigate = useNavigate();
+  const [update, { isLoading }] = useUpdateProfileMutation();
 
   const { userInfor } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userInfor) {
-      navigate("/");
-    }
-  }, [navigate, userInfor]);
+    setName(userInfor.name);
+    setEmail(userInfor.email);
+  }, [userInfor.setName, userInfor.setEmail]);
 
   const submithandler = async (e) => {
     e.preventDefault();
@@ -33,17 +31,27 @@ const RegisterScreen = () => {
       toast.error("Password is not matching");
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        navigate("/");
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
+
+          const res = await update({
+            _id: userInfor.id,
+            name,
+            email,
+            password,
+            confirmPassword,
+          }).unwrap();
+          dispatch(setCredentials({ ...res }));
+          //   navigate('/')
+          toast.success("Profile updated successfully");
+        
+      } 
+      catch (err) {
+        toast.error(err?.data?.message || err.error)
       }
     }
   };
   return (
     <FormContainer>
-      <h1>Sign Up</h1>
+      <h1>Update Profile</h1>
       <Form onSubmit={submithandler}>
         <Form.Group className="my-2" controlId="name">
           <Form.Label>Name</Form.Label>
@@ -75,7 +83,7 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className="my-2" controlId="password">
+        <Form.Group className="my-2" controlId="confirmPassword">
           <Form.Label>Confirm password </Form.Label>
           <Form.Control
             type="password"
@@ -84,19 +92,13 @@ const RegisterScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        {isLoading && <Loader />}
-        <Button type="submit" variant="primary" className="mt-3">
-          Sign Up
-        </Button>
 
-        <Row className="py-3">
-          <Col>
-            Already account exists ? <Link to="/login">login</Link>
-          </Col>
-        </Row>
+        <Button type="submit" variant="primary" className="mt-3">
+          Update
+        </Button>
       </Form>
     </FormContainer>
   );
 };
 
-export default RegisterScreen;
+export default ProfileScreen;
