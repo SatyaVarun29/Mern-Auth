@@ -40,7 +40,6 @@ const ProfileScreen = () => {
             confirmPassword,
           }).unwrap();
           dispatch(setCredentials({ ...res }));
-          //   navigate('/')
           toast.success("Profile updated successfully");
         
       } 
