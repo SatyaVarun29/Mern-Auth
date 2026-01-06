@@ -31,20 +31,17 @@ const ProfileScreen = () => {
       toast.error("Password is not matching");
     } else {
       try {
-
-          const res = await update({
-            _id: userInfor.id,
-            name,
-            email,
-            password,
-            confirmPassword,
-          }).unwrap();
-          dispatch(setCredentials({ ...res }));
-          toast.success("Profile updated successfully");
-        
-      } 
-      catch (err) {
-        toast.error(err?.data?.message || err.error)
+        const res = await update({
+          _id: userInfor.id,
+          name,
+          email,
+          password,
+          confirmPassword,
+        }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        toast.success("Profile updated successfully");
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
       }
     }
   };
