@@ -8,7 +8,6 @@ import { setCredentials } from "../slices/Authslice";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
-
 const Loginscreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +59,7 @@ const Loginscreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-      {isLoading && <Loader/>}
+        {isLoading && <Loader />}
         <Button type="submit" variant="primary" className="mt-3">
           Sign in
         </Button>
