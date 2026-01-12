@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Header />
-        <ToastContainer/>
+      <ToastContainer />
       <Container className="my-2">
         <Outlet />
       </Container>
