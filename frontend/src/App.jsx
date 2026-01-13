@@ -11,7 +11,7 @@ const App = () => {
       <Header />
       <ToastContainer />
       <Container className="my-2">
-        <Outlet />
+      <Outlet />
       </Container>
     </>
   );
