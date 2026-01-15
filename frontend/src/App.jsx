@@ -1,4 +1,4 @@
-import React from "react";
+
 import Header from "./components/header";
 import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -11,7 +11,7 @@ const App = () => {
       <Header />
       <ToastContainer />
       <Container className="my-2">
-      <Outlet />
+        <Outlet />
       </Container>
     </>
   );
