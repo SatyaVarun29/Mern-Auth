@@ -35,7 +35,7 @@ const Loginscreen = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
-  
+
   return (
     <FormContainer>
       <h1>Sign in</h1>
@@ -74,6 +74,5 @@ const Loginscreen = () => {
     </FormContainer>
   );
 };
-
 
 export default Loginscreen;
