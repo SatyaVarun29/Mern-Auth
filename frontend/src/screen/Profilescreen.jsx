@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/formcontainer";
 import { useDispatch, useSelector } from "react-redux";
-
 import { setCredentials } from "../slices/Authslice";
 import { toast } from "react-toastify";
 import { useUpdateProfileMutation } from "../slices/userApiSlice";
