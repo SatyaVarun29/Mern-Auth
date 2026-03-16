@@ -16,10 +16,10 @@ const authSlice = createSlice({
     },
 
     logout: (state, action) => {
-      (state.userInfor = null), localStorage.removeItem("userInfor");
+      ((state.userInfor = null), localStorage.removeItem("userInfor"));
     },
   },
 });
-export const {setCredentials,logout}=authSlice.actions
+export const { setCredentials, logout } = authSlice.actions;
 
 export default authSlice.reducer;
